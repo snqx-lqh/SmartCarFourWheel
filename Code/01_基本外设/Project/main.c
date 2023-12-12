@@ -17,6 +17,7 @@
 int16_t motorAEncode=0,motorBEncode=0,motorCEncode,motorDEncode=0;
 int16_t key1_value = 0,key2_value = 0,key3_value = 0,key4_value = 0,key5_value = 0;
 int16_t sw1_value = 0, sw2_value = 0, sw3_value = 0;
+
 void example()
 {
 	//LED测试
@@ -42,20 +43,18 @@ void example()
 //	OLED_Refresh();
 //	delay_ms(5);
 	//电机输出测试
-//	MOTORA_PWMA_SET(MOTORA_TIM,3600);
-//	MOTORA_PWMB_SET(MOTORA_TIM,0);
-	motor_pwm_set(1000,3000,3000,3000);
-	delay_ms(1000);
+//	motor_pwm_set(3000,3000,3000,3000);
+//	delay_ms(1000);
 	//串口测试
 //	printf("HELLO\r\n");
 //	delay_ms(1000);
-	//电机编码器读取
+//	//电机编码器读取
 	
-//	motorAEncode += read_encoder(MOTORA_ENC);
-//	motorBEncode += (-read_encoder(MOTORB_ENC));
-//	motorCEncode += (-read_encoder(MOTORC_ENC));
-//	motorDEncode += read_encoder(MOTORD_ENC);
-//	delay_ms(5);
+	motorAEncode += read_encoder(MOTORA_ENC);
+	motorBEncode += (-read_encoder(MOTORB_ENC));
+	motorCEncode += (-read_encoder(MOTORC_ENC));
+	motorDEncode += read_encoder(MOTORD_ENC);
+	delay_ms(5);
 }
 
 int main()
@@ -64,17 +63,12 @@ int main()
 	bsp_usart2_init(115200);
 	delay_init();
 	bsp_led_init();
-	//bsp_timer6_init(5000,72);
+	bsp_timer6_init(5000,72);
 	bsp_key_init();
 	bsp_motor_init();
-//	GPIO_ResetBits(GPIOA,GPIO_Pin_8);
-//	GPIO_SetBits(GPIOA,GPIO_Pin_9);
 	MPU_Init();
 	OLED_Init();
 
-	//motor_pwm_set(-3000,-3000,-3000,-3000);
-
-	//delay_ms(5);
 	
 	while(1)
 	{

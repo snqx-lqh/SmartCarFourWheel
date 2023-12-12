@@ -18,16 +18,16 @@ PWM:       TIM1_1_2    TIM8_3_4
 #define MOTORA_PWMB_SET    TIM_SetCompare2
 
 #define MOTORB_TIM         TIM8
-#define MOTORB_PWMA_SET    TIM_SetCompare3
-#define MOTORB_PWMB_SET    TIM_SetCompare4
+#define MOTORB_PWMA_SET    TIM_SetCompare4
+#define MOTORB_PWMB_SET    TIM_SetCompare3
 
-#define MOTORC_TIM         TIM1
-#define MOTORC_PWMA_SET    TIM_SetCompare3
-#define MOTORC_PWMB_SET    TIM_SetCompare4
+#define MOTORC_TIM         TIM8
+#define MOTORC_PWMA_SET    TIM_SetCompare2
+#define MOTORC_PWMB_SET    TIM_SetCompare1
 
-#define MOTORD_TIM         TIM8
-#define MOTORD_PWMA_SET    TIM_SetCompare1
-#define MOTORD_PWMB_SET    TIM_SetCompare2
+#define MOTORD_TIM         TIM1
+#define MOTORD_PWMA_SET    TIM_SetCompare3
+#define MOTORD_PWMB_SET    TIM_SetCompare4
 
 #define MOTORA_ENC    4
 #define MOTORB_ENC    2

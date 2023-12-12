@@ -88,7 +88,7 @@ void motor_pwm_set(int16_t motorAPwm,int16_t motorBPwm,int16_t motorCPwm,int16_t
 
 void bsp_motor_init(void)
 {
-	bsp_motor_pwm_init(7200,1); //10K
+	bsp_motor_pwm_init(7200,10); //10K
 	bsp_encoder_init();
 }
 

@@ -42,8 +42,8 @@ void bsp_usart2_init(u32 bound)
         NVIC_InitTypeDef NVIC_InitStructure;
 
         NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn;
-        NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=3 ;//抢占优先级3
-        NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;		//子优先级3
+        NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=5 ;//抢占优先级3
+        NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;		//子优先级3
         NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQ通道使能
         NVIC_Init(&NVIC_InitStructure);	//根据指定的参数初始化NVIC寄存器
     }
