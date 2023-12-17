@@ -3,6 +3,7 @@
 #include "bsp_motor.h"
 #include "bluetooth_debugger.h"
 #include "bsp_key.h"
+#include "nrf_task.h"
 
 chassis_move_t chassis;
 
@@ -57,16 +58,16 @@ void chassis_date_update(chassis_move_t *chassis)
 	chassis->chassis_motor[2].speed = (-read_encoder(MOTORC_ENC));//获取电机数据
 	chassis->chassis_motor[3].speed = read_encoder(MOTORD_ENC);//获取电机数据
 
-	if(SW_1 == 0  && SW_3 == 0)
+	if(RC_Ctrl.KEY_BM_L == 1  && RC_Ctrl.KEY_BM_R == 1)
 	{
 		chassis->chassis_mode = CHASSIS_RUN;
-	}else if(SW_1 == 1 && SW_3 == 0)
+	}else if(RC_Ctrl.KEY_BM_L == 0  && RC_Ctrl.KEY_BM_R == 1)
 	{
 		chassis->chassis_mode = CHASSIS_NORMAL;
-	}else if(SW_1 == 0  && SW_3 == 1)
+	}else if(RC_Ctrl.KEY_BM_L == 1  && RC_Ctrl.KEY_BM_R == 0)
 	{
 		chassis->chassis_mode = CHASSIS_TEST;
-	}else if(SW_1 == 1  && SW_3 == 1)
+	}else if(RC_Ctrl.KEY_BM_L == 0  && RC_Ctrl.KEY_BM_R == 0)
 	{
 		chassis->chassis_mode = CHASSIS_STOP;
 	}
@@ -78,13 +79,13 @@ void chassis_date_update(chassis_move_t *chassis)
 		chassis->move_vz = 0;
 	}else if(chassis->chassis_mode==CHASSIS_NORMAL)  
 	{
-	    chassis->move_vx = 0;
-		chassis->move_vy = 20;
-		chassis->move_vz = 0;
+	    chassis->move_vx = (RC_Ctrl.lx_value-2047)/100;
+		chassis->move_vy = -(RC_Ctrl.ly_value-2047)/100;
+		chassis->move_vz = -(RC_Ctrl.ry_value-2047)/100;;
 	}else if(chassis->chassis_mode==CHASSIS_TEST)  
 	{
-	    chassis->move_vx = 20;
-		chassis->move_vy = 0;
+	    chassis->move_vx = (int16_t)RC_Ctrl.anglex/2.5;
+		chassis->move_vy = -(int16_t)RC_Ctrl.angley/2.5;
 		chassis->move_vz = 0;
 	}else if(chassis->chassis_mode==CHASSIS_STOP)  
 	{
@@ -106,10 +107,10 @@ void chassis_set_control(chassis_move_t *chassis)
 		#endif
 		
 		#if 1
-		chassis->chassis_motor[0].speed_set =  chassis->move_vx + chassis->move_vy;
-		chassis->chassis_motor[1].speed_set =  chassis->move_vx - chassis->move_vy;
-		chassis->chassis_motor[2].speed_set =  chassis->move_vx - chassis->move_vy;
-		chassis->chassis_motor[3].speed_set =  chassis->move_vx + chassis->move_vy;
+		chassis->chassis_motor[0].speed_set =  chassis->move_vx + chassis->move_vy + chassis->move_vz;
+		chassis->chassis_motor[1].speed_set =  chassis->move_vx - chassis->move_vy - chassis->move_vz;
+		chassis->chassis_motor[2].speed_set =  chassis->move_vx + chassis->move_vy - chassis->move_vz;
+		chassis->chassis_motor[3].speed_set =  chassis->move_vx - chassis->move_vy + chassis->move_vz;
 		#endif
 	}else if(chassis->chassis_mode==CHASSIS_RUN)  
 	{

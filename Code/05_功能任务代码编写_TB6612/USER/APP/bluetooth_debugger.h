@@ -94,6 +94,7 @@ typedef union {
 	float   float_data;
 }uchar_to_float_t;
 
+extern uchar_to_float_t uchar_to_float;
 
 //串口接受数据
 void get_usart_data(uint8_t rx_buff,uint8_t *usart_rx_buff);

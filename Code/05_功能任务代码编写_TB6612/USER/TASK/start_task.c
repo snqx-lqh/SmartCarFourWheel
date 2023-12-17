@@ -9,6 +9,7 @@
 #include "user_task.h"
 #include "bluetooth_task.h"
 #include "chassis_task.h"
+#include "nrf_task.h"
 
 #define START_TASK_PRIO 1
 #define START_STK_SIZE  128
@@ -21,6 +22,10 @@ static  TaskHandle_t   USERTask_Handler;
 #define BLUETOOTH_TASK_PRIO 5
 #define BLUETOOTH_STK_SIZE  512
 static  TaskHandle_t   BLUETOOTHTask_Handler;
+
+#define NRF_TASK_PRIO 5
+#define NRF_STK_SIZE  512
+static  TaskHandle_t   NRFTask_Handler;
 
 #define CHASSIS_TASK_PRIO 6
 #define CHASSIS_STK_SIZE  512
@@ -37,12 +42,19 @@ void start_task(void *pvParameters)
                 (UBaseType_t)USER_TASK_PRIO,        //任务优先级
                 (TaskHandle_t *)&USERTask_Handler); //任务句柄
 
-	xTaskCreate((TaskFunction_t)bluetooth_task,          //任务函数
-                (const char *)"bluetooth_task",          //任务名称
-                (uint16_t)BLUETOOTH_STK_SIZE,            //任务堆栈大小
+//	xTaskCreate((TaskFunction_t)bluetooth_task,          //任务函数
+//                (const char *)"bluetooth_task",          //任务名称
+//                (uint16_t)BLUETOOTH_STK_SIZE,            //任务堆栈大小
+//                (void *)NULL,                        //传递给任务函数的参数
+//                (UBaseType_t)BLUETOOTH_TASK_PRIO,        //任务优先级
+//                (TaskHandle_t *)&BLUETOOTHTask_Handler); //任务句柄
+				
+	xTaskCreate((TaskFunction_t)nrf_task,          //任务函数
+                (const char *)"nrf_task",          //任务名称
+                (uint16_t)NRF_STK_SIZE,            //任务堆栈大小
                 (void *)NULL,                        //传递给任务函数的参数
-                (UBaseType_t)BLUETOOTH_TASK_PRIO,        //任务优先级
-                (TaskHandle_t *)&BLUETOOTHTask_Handler); //任务句柄
+                (UBaseType_t)NRF_TASK_PRIO,        //任务优先级
+                (TaskHandle_t *)&NRFTask_Handler); //任务句柄
 	
 	xTaskCreate((TaskFunction_t)chassis_task,          //任务函数
                 (const char *)"chassis_task",          //任务名称

@@ -647,6 +647,11 @@
               <FileType>1</FileType>
               <FilePath>..\USER\TASK\chassis_task.c</FilePath>
             </File>
+            <File>
+              <FileName>nrf_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\TASK\nrf_task.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

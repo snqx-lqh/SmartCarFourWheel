@@ -2,6 +2,7 @@
 #include "stdio.h"
 
 #include "bluetooth_debugger.h"
+#include "nrf_task.h"
 
 void USART1_IRQHandler(void)
 {
@@ -20,8 +21,9 @@ void USART2_IRQHandler(void)
     if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)
     {
 		res = USART_ReceiveData(USART2);
-		get_usart_data(res,usart_rx_buff);
-		data_unpacket(&rx_pack_ptr,usart_rx_buff);
+//		get_usart_data(res,usart_rx_buff);
+//		data_unpacket(&rx_pack_ptr,usart_rx_buff);
+		usart_NRF_receive_data(res);
         USART_ClearITPendingBit(USART2, USART_IT_RXNE);
     }
 }
