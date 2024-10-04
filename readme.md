@@ -12,11 +12,11 @@ Hardware 该文件夹存放了立创EDA导出的原理图和PCB
 
 3D渲染图
 
-![image-20240809113221529](.\img\readme\image-20240809113221529.png)
+![image-20240809113221529](./06_Image/readme/image-20240809113221529.png)
 
 实物图
 
-![image-20240809113044950](.\img\readme\image-20240809113044950.png)
+![image-20240809113044950](./06_Image/readme/image-20240809113044950.png)
 
 主控：STM32F103RCT6
 
